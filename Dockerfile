@@ -19,7 +19,7 @@ RUN \
 	\
 	# add in tModLoader \
 	cd Linux &&\
-	wget https://github.com/blushiemagic/tModLoader/releases/download/v0.10.1.4/tModLoader.Linux.v0.10.1.4.zip &&\
+	wget https://github.com/blushiemagic/tModLoader/releases/download/v0.10.1.5/tModLoader.Linux.v0.10.1.5.zip &&\
 	unzip tModLoader.Linux.v*.zip &&\
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
