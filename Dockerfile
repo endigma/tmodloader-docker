@@ -13,7 +13,7 @@ RUN \
 	cd /terraria-server &&\
 	\
 	# get vanilla server \
-	wget http://terraria.org/server/terraria-server-1352.zip &&\
+	wget http://terraria.org/server/terraria-server-1353.zip &&\
 	unzip terraria-server-*.zip &&\
 	rm terraria-server-*.zip &&\
 	\
