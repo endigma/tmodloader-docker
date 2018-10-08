@@ -16,6 +16,8 @@ RUN \
 	wget http://terraria.org/server/terraria-server-1353.zip &&\
 	unzip terraria-server-*.zip &&\
 	rm terraria-server-*.zip &&\
+	cp --verbose -a 1353/. . &&\
+	rm -rf 1353 &&\
 	\
 	# add in tModLoader \
 	cd Linux &&\
