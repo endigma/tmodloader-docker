@@ -1,6 +1,6 @@
 # METADATA
 FROM debian:testing-slim
-LABEL maintainer="jmm@yavook.de"
+LABEL maintainer="joe.stratton@asu.edu"
 
 RUN \
 	# system update \
@@ -21,7 +21,7 @@ RUN \
 	\
 	# add in tModLoader \
 	cd Linux &&\
-	wget https://github.com/tModLoader/tModLoader/releases/download/v0.11/tModLoader.Linux.v0.11.zip &&\
+	wget https://github.com/tModLoader/tModLoader/releases/download/v0.11.1/tModLoader.Linux.v0.11.1.zip &&\
 	unzip tModLoader.Linux.v*.zip &&\
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
