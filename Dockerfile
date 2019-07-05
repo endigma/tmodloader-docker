@@ -27,9 +27,8 @@ RUN \
 	chmod u+x tModLoaderServer* &&\
 	#test
 	chmod u+x Terraria &&\
-	/terraria-server/Linux/Terraria
-	#chmod u+x tModLoader.bin.x86_64 &&\
-	\
+	/terraria-server/Linux/Terraria &&\
+	
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
 	# remove Leftovers \
