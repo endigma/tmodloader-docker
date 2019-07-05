@@ -27,6 +27,7 @@ RUN \
 	chmod u+x tModLoaderServer* &&\
 	#test
 	chmod u+x Terraria &&\
+	chmod u+x tModLoader.bin* &&\
 	\
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
