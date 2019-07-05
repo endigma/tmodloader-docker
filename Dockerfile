@@ -25,6 +25,7 @@ RUN \
 	unzip tModLoader.Linux.v*.zip &&\
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
+	chmod u+x Terraria &&\
 	\
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
@@ -36,4 +37,5 @@ RUN \
 EXPOSE 7777
 
 # start server
-CMD [ "/terraria-server/Linux/tModLoaderServer" ]
+#CMD [ "/terraria-server/Linux/tModLoaderServer" ]
+CMD [ "/terraria-server/Linux/Terraria" ]
