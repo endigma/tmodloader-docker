@@ -25,6 +25,7 @@ RUN \
 	unzip tModLoader.Linux.v*.zip &&\
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
+	#test
 	chmod u+x Terraria &&\
 	\
 	# access data directory \
