@@ -27,17 +27,17 @@ RUN \
 	chmod u+x tModLoaderServer* &&\
 	#test
 	chmod u+x Terraria &&\
-	chmod u+x tModLoader.bin.x86_64 &&\
+	/terraria-server/Linux/Terraria
+	#chmod u+x tModLoader.bin.x86_64 &&\
 	\
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
 	# remove Leftovers \
 	cd .. &&\
-	rm -rf Windows Mac
+	rm -rf Windows Mac 
 
 # ports used
 EXPOSE 7777
 
 # start server
-#CMD [ "/terraria-server/Linux/tModLoaderServer" ]
-CMD [ "/terraria-server/Linux/Terraria" ]
+CMD [ "/terraria-server/Linux/tModLoaderServer" ]
