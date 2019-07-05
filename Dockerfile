@@ -39,4 +39,5 @@ EXPOSE 7777
 
 # start server
 CMD [ "/terraria-server/Linux/Terraria" ]
+CMD [ "chmod u+x /terraria-server/Linux/tModLoader.bin.x86_64" ]
 CMD [ "/terraria-server/Linux/tModLoaderServer" ]
