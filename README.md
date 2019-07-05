@@ -1,6 +1,6 @@
 # tmodloader-docker
 
-Terraria server 1.3.5.3 with tModLoader v0.10.1.5
+Terraria server 1.3.5.3 with tModLoader v0.11.1
 
 ## Quick Start
 
