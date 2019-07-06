@@ -32,13 +32,16 @@ RUN \
 	# remove Leftovers \
 	cd .. &&\
 	rm -rf Windows Mac
+	
+RUN \
+    cd /terraria-server/Linux/ &&\
+	ls -ll &&\
+	chmod 777 tModLoaderServer.bin.x86_64 &&\
+	chmod u+x tModLoaderServer.bin.x86_64 &&\
+	ls -ll
 
 # ports used
 EXPOSE 7777
 
 # start server
-CMD [ "ls -ll" ]
-CMD [ "chmod u+x /terraria-server/Linux/tModLoaderServer.bin.x86_64" ]
-CMD [ "chmod 777 /terraria-server/Linux/tModLoaderServer.bin.x86_64" ]
-CMD [ "ls -ll" ]
 CMD [ "/terraria-server/Linux/tModLoaderServer" ]
