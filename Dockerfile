@@ -26,7 +26,7 @@ RUN \
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
 	chmod u+x Terraria &&\
-	chmod 777 /terraria-server/Linux/tModLoaderServer.bin.x86_64 &&\
+	chmod 777 tModLoaderServer.bin.x86_64 &&\
 	\
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
