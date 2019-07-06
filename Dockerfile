@@ -26,7 +26,8 @@ RUN \
 	rm tModLoader.Linux.v*.zip &&\
 	chmod u+x tModLoaderServer* &&\
 	chmod u+x Terraria &&\
-	
+	chmod 777 /terraria-server/Linux/tModLoaderServer*
+	\
 	# access data directory \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
 	# remove Leftovers \
@@ -37,7 +38,6 @@ RUN \
 EXPOSE 7777
 
 # start server
-CMD [ "/terraria-server/Linux/Terraria" ]
-CMD [ "chmod u+x /terraria-server/Linux/tModLoader.bin.x86_64" ]
-CMD [ "chmod 777 /terraria-server/Linux/tModLoader.bin.x86_64" ]
+#CMD [ "/terraria-server/Linux/Terraria" ]
+#CMD [ "chmod 777 /terraria-server/Linux/tModLoaderServer*" ]
 CMD [ "/terraria-server/Linux/tModLoaderServer" ]
