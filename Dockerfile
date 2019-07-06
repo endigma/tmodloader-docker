@@ -31,14 +31,8 @@ RUN \
 	ln -s ${HOME}/.local/share/Terraria/ /terraria &&\
 	# remove Leftovers \
 	cd .. &&\
-	rm -rf Windows Mac
-	
-RUN \
-    cd /terraria-server/Linux/ &&\
-	ls -ll &&\
-	chmod 777 tModLoaderServer.bin.x86_64 &&\
-	chmod u+x tModLoaderServer.bin.x86_64 &&\
-	ls -ll
+	rm -rf Windows Mac &&\
+	sed '0,/$KICKSTART/s//$KICKSTART\n\tchmod 777 $KICKSTART/' /terraria-server/Linux/tModLoaderServer
 
 # ports used
 EXPOSE 7777
