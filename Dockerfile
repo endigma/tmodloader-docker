@@ -1,7 +1,7 @@
 # METADATA
 FROM debian:testing-slim
 LABEL maintainer="joe.stratton@asu.edu"
-#old
+#new
 RUN \
         # system update \
         apt-get -y update &&\
@@ -12,7 +12,7 @@ RUN \
         mkdir /terraria-server &&\
         cd /terraria-server &&\
         \
-        # get vanilla server \
+        # get vanilla server test \
         wget http://terraria.org/server/terraria-server-1353.zip &&\
         unzip terraria-server-*.zip &&\
         rm terraria-server-*.zip &&\
@@ -21,7 +21,7 @@ RUN \
         \
         # add in tModLoader \
         cd Linux &&\
-        wget https://github.com/tModLoader/tModLoader/releases/download/v0.11.1/tModLoader.Linux.v0.11.1.zip &&\
+        wget https://github.com/tModLoader/tModLoader/releases/download/v0.11.2.2/tModLoader.Linux.v0.11.2.2.zip &&\
         unzip tModLoader.Linux.v*.zip &&\
         rm tModLoader.Linux.v*.zip &&\
         chmod u+x tModLoaderServer* &&\
