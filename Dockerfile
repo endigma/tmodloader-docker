@@ -26,8 +26,11 @@ RUN  wget -qO - "https://github.com/tModLoader/tModLoader/releases/download/v${T
 # access data directory
 RUN ln -s ${HOME}/.local/share/Terraria/ /terraria
 
+# Add default config file
+COPY config.txt .
+
 # ports used
 EXPOSE 7777
 
 # start server
-CMD [ "/terraria-server/tModLoaderServer" ]
+ENTRYPOINT [ "/terraria-server/tModLoaderServer", "-config", "config.txt" ]
