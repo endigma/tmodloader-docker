@@ -64,7 +64,7 @@ TMOD_AUTOSAVE_INTERVAL | */10 * * * *   | Cron expression that specifies how oft
                 - TMOD_SHUTDOWN_MSG="See ya!"
 
 [tModLoader]: https://www.tmodloader.net/
-[wiki]: https://terraria.gamepedia.com/Guide:Setting_up_a_Terraria_server#Making_a_configuration_file
+[wiki]: https://terraria.gamepedia.com/Server#Server_config_file
 [commands]: https://terraria.gamepedia.com/Server#List_of_console_commands
 [tMod Version]: https://img.shields.io/badge/tMod-0.11.6.2-blue
 [Terraria Version]: https://img.shields.io/badge/Terraria-1.3.5.3-blue
