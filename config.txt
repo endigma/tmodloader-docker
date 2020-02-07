@@ -1,16 +1,16 @@
 # See wiki for details
 # https://terraria.gamepedia.com/Guide:Setting_up_a_Terraria_server#Making_a_configuration_file
 
-#maxplayers=8
-#world=/terraria/ModLoader/Worlds/world1.wld
-#port=7777
+maxplayers=8
+worldname=World
+world=/terraria/ModLoader/Worlds/World.wld
+port=7777
 #password=
-#motd=Please don’t cut the purple trees!
-#worldpath=/terraria/ModLoader/Worlds
-#autocreate=3
-#difficulty=0
-#worldname=World
+motd=Please don’t cut the purple trees!
+worldpath=/terraria/ModLoader/Worlds
+autocreate=1
+difficulty=0
 #banlist=banlist.txt
-#secure=1
+secure=1
 #priority=0
 #language=en/US

@@ -1,26 +1,76 @@
-# tmodloader-docker
+# tModLoader Docker ![tMod Version] ![Terraria Version]  [![Docker Pulls]][0]
 
-Terraria server 1.3.5.3 with tModLoader v0.11.5
+[tModLoader] dedicated server  
+
+Terraria server 1.3.5.3 with tModLoader v0.11.5.
+
+Supports graceful shutdown (saves when the container receives a stop command) and also supports autosaving every 10 minutes (configurable, see [Environment Variables] below).
 
 ## Quick Start
 
-    docker run -it --name terraria -p 7777:7777 j123ss/tmodloader
+    docker run -d --name tmod -p 7777:7777 -v /etc/localtime:/etc/localtime:ro rfvgyhn/tmodloader
 
 # Adding worlds
 
-    docker run -it --name terraria -p 7777:7777 -v /path/to/.../terraria:/terraria j123ss/tmodloader
+    docker run -d --name tmod -p 7777:7777 -v /etc/localtime:/etc/localtime:ro -v $(pwd)/data:/terraria rfvgyhn/tmodloader
 
-# Config File
+# Server Config File
 
-You can mount a config file in order to prevent the server requiring input on startup. See [wiki][0] for file format details.
+You can mount a config file. This allows you to specify server and world settings. If you don't specify one, a [default] will be used. See [wiki] for file format details.
 
-    docker run -it --name terraria -p 7777:7777 -v /path/to/.../terraria:/terraria -v /path/to/.../config.txt:/terraria-server/config.txt j123ss/tmodloader
+    docker run -d --name tmod -p 7777:7777 -v /etc/localtime:/etc/localtime:ro -v $(pwd)/data:/terraria -v $(pwd)/config.txt:/terraria-server/config.txt rfvgyhn/tmodloader
 
-# More info
+# Initial Setup
 
-How to run and manipulate [a vanilla terraria container][1]. Most of these apply here.
-Original walkthrough [on reddit by GhostInThePrompt][2].
+If you want to use the server's mod browser to install and enable mods, run an interactive container with the `setup` parameter appended to the end.
 
-[0]: https://terraria.gamepedia.com/Guide:Setting_up_a_Terraria_server#Making_a_configuration_file
-[1]: https://store.docker.com/community/images/ryshe/terraria
-[2]: https://www.reddit.com/r/Terraria/comments/7dbkfe/how_to_create_a_tmodloadermodded_server_on_linux
+    docker run -it --rm -v $(pwd)/data:/terraria rfvgyhn/tmodloader setup
+
+After setting up your mods, and optionally setting up a world, press `Ctrl+C` to exit the container. Then you can use the normal docker command to run your server. Note that you'll see the mods and the `enabled.json` files appear in your mods folder on the host.
+
+You can also skip this step and [directly] download your mods. Place the mod files in your `data/ModLoader/Mods` folder and make sure to enable them in the `data/ModLoader/Mods/enabled.json` file.
+
+# Sending Commands to the Server
+
+This container is designed to be run in headless mode. This means you you can't manually type [commands] like you would on a normal Terraria server.
+You can inject [commands] from the host machine though. For example, assuming your container is named _tmod_:
+
+    docker exec tmod inject "kick player1"
+    docker exec tmod inject "say NOT THE BEEES!!!"
+
+# Environment Variables
+
+Name                   | Default Value  | |
+-----------------------|----------------|-
+TMOD_SHUTDOWN_MSG      | Shutting Down! | Message that appears when server is shutting down
+TMOD_AUTOSAVE_INTERVAL | */10 * * * *   | Cron expression that specifies how often to save the world. Default is every 10 minutes.
+
+    docker run -d --name tmod -e TMOD_SHUTDOWN_MSG="Goodbye" -e TMOD_AUTOSAVE_INTERVAL="*/15 * * * *" -p 7777:7777 -v /etc/localtime:/etc/localtime:ro rfvgyhn/tmodloader
+
+# Sample Docker Compose
+
+    version: '3'
+    services:
+        tmod:
+            image: 'rfvgyhn/tmodloader:latest'
+            container_name: 'tmod'
+            ports:
+                - '7777:7777'
+            volumes:
+                - /etc/localtime:/etc/localtime:ro
+                - ./data:/terraria
+                - ./config.txt:/terraria-server/config.txt
+            environment:
+                - TMOD_SHUTDOWN_MSG="See ya!"
+
+[tModLoader]: https://www.tmodloader.net/
+[wiki]: https://terraria.gamepedia.com/Guide:Setting_up_a_Terraria_server#Making_a_configuration_file
+[commands]: https://terraria.gamepedia.com/Server#List_of_console_commands
+[tMod Version]: https://img.shields.io/badge/tMod-0.11.5-blue
+[Terraria Version]: https://img.shields.io/badge/Terraria-1.3.5.3-blue
+[Docker Stars]: https://img.shields.io/docker/stars/rfvgyhn/tmodloader.svg
+[Docker Pulls]: https://img.shields.io/docker/pulls/rfvgyhn/tmodloader.svg
+[default]: https://github.com/Rfvgyhn/tmodloader-docker/blob/master/config.txt
+[directly]: https://github.com/tModLoader/tModLoader/wiki/Mod-Browser#direct-download
+[Environment Variables]: #environment-variables
+[0]: https://hub.docker.com/r/rfvgyhn/tmodloader
