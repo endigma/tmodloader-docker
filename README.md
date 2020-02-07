@@ -66,7 +66,7 @@ TMOD_AUTOSAVE_INTERVAL | */10 * * * *   | Cron expression that specifies how oft
 [tModLoader]: https://www.tmodloader.net/
 [wiki]: https://terraria.gamepedia.com/Guide:Setting_up_a_Terraria_server#Making_a_configuration_file
 [commands]: https://terraria.gamepedia.com/Server#List_of_console_commands
-[tMod Version]: https://img.shields.io/badge/tMod-0.11.5-blue
+[tMod Version]: https://img.shields.io/badge/tMod-0.11.6.1-blue
 [Terraria Version]: https://img.shields.io/badge/Terraria-1.3.5.3-blue
 [Docker Stars]: https://img.shields.io/docker/stars/rfvgyhn/tmodloader.svg
 [Docker Pulls]: https://img.shields.io/docker/pulls/rfvgyhn/tmodloader.svg
