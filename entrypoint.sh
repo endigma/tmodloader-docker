@@ -22,7 +22,10 @@ else
   trap shutdown SIGTERM SIGINT
 
   saveMsg='Autosave - $(date +"%Y-%m-%d %T")'
-  (crontab -l 2>/dev/null; echo "$TMOD_AUTOSAVE_INTERVAL echo \"$saveMsg\" > $pipe && inject save") | crontab -
+  
+  if ! crontab -l | grep -q "Autosave"; then
+    (crontab -l 2>/dev/null; echo "$TMOD_AUTOSAVE_INTERVAL echo \"$saveMsg\" > $pipe && inject save") | crontab -
+  fi
   mkfifo $pipe
   tmux new-session -d "$server -config config.txt > $pipe" &
   /usr/sbin/crond -d 8
