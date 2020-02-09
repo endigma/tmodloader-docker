@@ -29,12 +29,15 @@ RUN apk update &&\
     apk add --no-cache procps tmux
 RUN ln -s ${HOME}/.local/share/Terraria/ /terraria
 COPY inject.sh /usr/local/bin/inject
+COPY handle-idle.sh /usr/local/bin/handle-idle
 
 EXPOSE 7777
 ENV TMOD_SHUTDOWN_MSG="Shutting down!"
 ENV TMOD_AUTOSAVE_INTERVAL="*/10 * * * *"
+ENV TMOD_IDLE_CHECK_INTERVAL=""
+ENV TMOD_IDLE_CHECK_OFFSET=0
 
 COPY config.txt entrypoint.sh ./
-RUN chmod +x entrypoint.sh /usr/local/bin/inject
+RUN chmod +x entrypoint.sh /usr/local/bin/inject /usr/local/bin/handle-idle
 
 ENTRYPOINT [ "/terraria-server/entrypoint.sh" ]

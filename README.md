@@ -40,12 +40,13 @@ You can inject [commands] from the host machine though. For example, assuming yo
 
 # Environment Variables
 
-Name                   | Default Value  | |
------------------------|----------------|-
-TMOD_SHUTDOWN_MSG      | Shutting Down! | Message that appears when server is shutting down
-TMOD_AUTOSAVE_INTERVAL | */10 * * * *   | Cron expression that specifies how often to save the world. Default is every 10 minutes.
-
-    docker run -d --name tmod -e TMOD_SHUTDOWN_MSG="Goodbye" -e TMOD_AUTOSAVE_INTERVAL="*/15 * * * *" -p 7777:7777 -v /etc/localtime:/etc/localtime:ro rfvgyhn/tmodloader
+Name                     | Default Value  | |
+-------------------------|----------------|-
+TMOD_SHUTDOWN_MSG        | Shutting Down! | Message that appears when server is shutting down
+TMOD_AUTOSAVE_INTERVAL   | */10 * * * *   | Cron expression that specifies how often to save the world. Default is every 10 minutes.
+TMOD_IDLE_CHECK_INTERVAL | Disabled       | Cron expression that specifies how often to check if no players are online. If none are online, the server will save the world and exit. This can be useful if your server costs are based on CPU usage.
+TMOD_IDLE_CHECK_OFFSET   | 0              | This allows for sub-second resolution if the idle check interval is specified
+    docker run -d --name tmod -e TMOD_SHUTDOWN_MSG="Goodbye" -e TMOD_AUTOSAVE_INTERVAL="*/15 * * * *" -e TMOD_IDLE_CHECK_INTERVAL="*/1 * * * *" -e TMOD_IDLE_CHECK_OFFSET=10 -p 7777:7777 -v /etc/localtime:/etc/localtime:ro rfvgyhn/tmodloader
 
 # Sample Docker Compose
 
