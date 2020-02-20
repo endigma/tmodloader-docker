@@ -4,9 +4,12 @@ ARG TMOD_VERSION=0.11.6.2
 ARG TERRARIA_VERSION=1353
 
 RUN apk update &&\
-    apk add --no-cache --virtual build curl unzip
+    apk add --no-cache --virtual build curl unzip &&\
+    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing mono
 
 WORKDIR /terraria-server
+
+RUN cp /usr/lib/libMonoPosixHelper.so .
 
 RUN curl -SLO "http://terraria.org/server/terraria-server-${TERRARIA_VERSION}.zip" &&\
     unzip terraria-server-*.zip &&\
