@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+
 
 pipe=/tmp/tmod.out
 players=/tmp/tmod.players.out
@@ -14,8 +16,7 @@ function shutdown() {
   rm $pipe
 }
 
-server="/terraria-server/tModLoaderServer.bin.x86_64"
-
+server="/terraria-server/Build/start-tModLoader.sh"
 if [ "$1" = "setup" ]; then
   $server
 else
@@ -31,8 +32,8 @@ else
     (crontab -l 2>/dev/null; echo "$TMOD_IDLE_CHECK_INTERVAL echo \"$idleMsg\" > $pipe && handle-idle $players") | crontab -
   fi
   mkfifo $pipe
-  tmux new-session -d "$server -config config.txt | tee $pipe $players" &
-  sleep 60 && /usr/sbin/crond -d 8 &
+  tmux new-session -d "$server -server -config /terraria-server/config.txt | tee $pipe $players"
+  sleep 60 && service cron start &
   cat $pipe &
 
   wait ${!}
