@@ -47,4 +47,4 @@ COPY entrypoint.sh .
 	
 
 	# start server by running the execution script
-ENTRYPOINT ["bash", "-c", "./entrypoint.sh ; bash"]
+ENTRYPOINT ["bash", "-c", "./entrypoint.sh"]
