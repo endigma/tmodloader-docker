@@ -9,6 +9,3 @@ services:
       - ./install.txt:/root/terraria-server/install.txt
     ports:
       - "7777:7777"
-    
-    stdin_open: true
-    tty: true
