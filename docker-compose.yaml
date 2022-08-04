@@ -1,0 +1,14 @@
+services:
+  tModLoader:
+    build: .
+    image: guillheu/tmodloader-dedicated-server
+    volumes:
+      # - ./Mods:/root/.local/share/Terraria/tModLoader/Mods
+      - ./Worlds:/root/.local/share/Terraria/tModLoader/Worlds
+      - ./serverconfig.txt:/root/terraria-server/serverconfig.txt
+      - ./install.txt:/root/terraria-server/install.txt
+    ports:
+      - "7777:7777"
+    
+    stdin_open: true
+    tty: true

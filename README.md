@@ -1,3 +1,5 @@
-# THIS IS A FORK
-the docker repo for this project is `guillh/tmodloader-1.4-beta`<br>
-needs an stdin to work. For docker run, use the `-it` option. For kubernetes, include the `stdin: true` option for your pod.
+Build & run with docker-compose :
+`docker-compose up --build`
+
+Build & run with docker :
+`docker build -t tmodloader . && docker run -p 7777:7777 --name tmodloader --rm -v /path/to/worlds/folder:/root/.local/share/Terraria/tModLoader/Worlds -v /path/to/mods/folder:/root/.local/share/Terraria/tModLoader/Worlds -v /path/to/serverconfig.txt:/root/terraria-server/serverconfig.txt tmodloader`

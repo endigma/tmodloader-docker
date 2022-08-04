@@ -1,49 +1,50 @@
-FROM ubuntu as build
+FROM steamcmd/steamcmd:ubuntu-20
 
-ARG TMOD_VERSION=2022.04.62.6
+ARG TMOD_VERSION=2022.07.58.8
 ARG TERRARIA_VERSION=1436
 
-RUN apt update
-RUN apt install -y dirmngr gnupg apt-transport-https ca-certificates software-properties-common
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-RUN apt-add-repository -y 'deb https://download.mono-project.com/repo/ubuntu stable-focal main'
-RUN apt install -y mono-complete 
-RUN apt install -y curl unzip
 
-WORKDIR /terraria-server
-
-# RUN cp /usr/lib/libMonoPosixHelper.so .
-
-RUN curl -SLO "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${TERRARIA_VERSION}.zip" &&\
-    unzip terraria-server-*.zip &&\
-    rm terraria-server-*.zip &&\
-    cp --verbose -a "${TERRARIA_VERSION}/Linux/." . &&\
-    rm -rf "${TERRARIA_VERSION}" &&\
-    rm TerrariaServer.exe
-
-RUN curl -SLO "https://github.com/tModLoader/tModLoader/releases/download/v${TMOD_VERSION}/tModLoader.zip" &&\
-    unzip tModLoader.zip &&\
-    chmod u+x Build/start-tModLoaderServer.sh &&\
-    chmod u+x Build/start-tModLoader.sh
-
-FROM bitnami/dotnet:3.1-debian-10
-
-WORKDIR /terraria-server
-COPY --from=build /terraria-server ./
-
-RUN apt update &&\
-    apt -y install procps cron tmux
-RUN ln -s ${HOME}/.local/share/Terraria/ /terraria
-COPY inject.sh /usr/local/bin/inject
-COPY handle-idle.sh /usr/local/bin/handle-idle
-
+	# ports used
 EXPOSE 7777
-ENV TMOD_SHUTDOWN_MSG="Shutting down!"
-ENV TMOD_AUTOSAVE_INTERVAL="*/10 * * * *"
-ENV TMOD_IDLE_CHECK_INTERVAL=""
-ENV TMOD_IDLE_CHECK_OFFSET=0
 
-COPY config.txt entrypoint.sh ./
-RUN chmod +x entrypoint.sh /usr/local/bin/inject /usr/local/bin/handle-idle
+	# system update 
+RUN apt -y update 
+RUN apt -y install wget unzip libicu-dev
+RUN apt -y clean
 
-ENTRYPOINT [ "/terraria-server/entrypoint.sh" ]
+	# helps terraria find the steamclient shared library
+RUN mkdir -p /root/.steam/sdk64
+RUN ln -s /root/.steam/steamcmd/linux64/steamclient.so /root/.steam/sdk64/steamclient.so
+
+
+WORKDIR /root/terraria-server 
+	
+
+	# add in tModLoader 
+RUN wget https://github.com/tModLoader/tModLoader/releases/download/v${TMOD_VERSION}/tModLoader.zip 
+RUN unzip -o tModLoader.zip 
+RUN rm tModLoader.zip 
+RUN chmod u+x DedicatedServerUtils/Setup_tModLoaderServer.sh
+RUN chmod u+x ./start-tModLoaderServer.sh
+
+
+	# install the latest version of tModLoader from steam
+RUN steamcmd +force_install_dir /root/tmod +login anonymous +app_update 1281930 +quit
+
+	# deleting the first line of the Setup_tModLoaderServer.sh script
+	# this is because that first line will download the newest version of tModLoader, which we've already installed above.
+	# note : it's better to install tModLoader at build time rather than execution time to avoid breaking older versions of the container, as well as speeding up execution. hence this cheap workaround. This might break if the script is heavily modified.
+RUN sed -i '1d' DedicatedServerUtils/Setup_tModLoaderServer.sh
+
+	# create Worlds and Mods directories
+	# should be auto-created if user mounts their local directories to the container, but perhaps for some reason the user wants ephemeral Mods or Worlds folders ?
+RUN mkdir -p /root/.local/share/Terraria/tModLoader/Worlds 
+RUN mkdir /root/.local/share/Terraria/tModLoader/Mods
+
+	# execution script
+COPY entrypoint.sh .
+
+	
+
+	# start server by running the execution script
+ENTRYPOINT ["bash", "-c", "./entrypoint.sh ; bash"]
