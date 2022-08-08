@@ -11,7 +11,9 @@ All those files are described [in the tmodloader wiki](https://github.com/tModLo
 
 ### Build & run with docker-compose
 **READ AND EDIT THE `docker-compose.yaml` FILE FIRST**. They contain mount paths for the files and directories mentioned above. Then run :
-`docker-compose up --build`
+```
+docker-compose up --build
+```
 
 ### Build & run with docker
 Edit the following commands to match the paths on the host :
