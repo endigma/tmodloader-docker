@@ -10,7 +10,7 @@ Currently, you need the following files and directories on your local machine be
 All those files are described [in the tmodloader wiki](https://github.com/tModLoader/tModLoader/wiki/Starting-a-modded-server).
 
 ### Build & run with docker-compose
-**READ AND EDIT THE `docker-compose.yaml` FILE FIRST**. They contain mount paths for the files and directories mentioned above. Then run :
+**READ AND EDIT THE `docker-compose.yaml` FILE FIRST**. It contains mount paths for the files and directories mentioned above. Then run :
 ```
 docker-compose up --build
 ```
