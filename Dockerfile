@@ -26,25 +26,26 @@ RUN unzip -o tModLoader.zip
 RUN rm tModLoader.zip 
 RUN chmod u+x DedicatedServerUtils/Setup_tModLoaderServer.sh
 RUN chmod u+x ./start-tModLoaderServer.sh
+RUN chmod u+x LaunchUtils/ScriptCaller.sh
 
 
 	# install the latest version of tModLoader from steam
-RUN steamcmd +force_install_dir /root/tmod +login anonymous +app_update 1281930 +quit
+# RUN steamcmd +force_install_dir /root/terraria-server/workshop +login anonymous +app_update 1281930 +quit
 
 	# deleting the first line of the Setup_tModLoaderServer.sh script
 	# this is because that first line will download the newest version of tModLoader, which we've already installed above.
 	# note : it's better to install tModLoader at build time rather than execution time to avoid breaking older versions of the container, as well as speeding up execution. hence this cheap workaround. This might break if the script is heavily modified.
-RUN sed -i '1d' DedicatedServerUtils/Setup_tModLoaderServer.sh
+# RUN sed -i '1d' DedicatedServerUtils/Setup_tModLoaderServer.sh
 
 	# create Worlds and Mods directories
 	# should be auto-created if user mounts their local directories to the container, but perhaps for some reason the user wants ephemeral Mods or Worlds folders ?
 RUN mkdir -p /root/.local/share/Terraria/tModLoader/Worlds 
 RUN mkdir /root/.local/share/Terraria/tModLoader/Mods
 
+# RUN echo "-steamworkshopfolder /root/tmod/" > cli-argsConfig.txt
+
 	# execution script
 COPY entrypoint.sh .
-
-	
 
 	# start server by running the execution script
 ENTRYPOINT ["bash", "-c", "./entrypoint.sh"]

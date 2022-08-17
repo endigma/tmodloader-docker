@@ -7,5 +7,9 @@ services:
       - ./Worlds:/root/.local/share/Terraria/tModLoader/Worlds
       - ./serverconfig.txt:/root/terraria-server/serverconfig.txt
       - ./install.txt:/root/terraria-server/install.txt
+      - ./enabled.json:/root/.local/share/Terraria/tModLoader/Mods/enabled.json
     ports:
       - "7777:7777"
+    
+    # stdin_open: true
+    # tty: true
