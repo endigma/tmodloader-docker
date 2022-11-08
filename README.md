@@ -1,3 +1,19 @@
+---
+
+
+# DO NOT USE THIS
+
+# TMOD PEOPLE HAVE THEIR OWN DOCKER SOLUTION
+
+# SEE [HERE](https://github.com/tModLoader/tModLoader/wiki/Starting-a-modded-server#using-the-docker-container)
+
+
+
+
+
+
+---
+
 # Docker container for dedicated tmodloader server.
 tModLoader repo : [https://github.com/tModLoader/tModLoader/](https://github.com/tModLoader/tModLoader/)
 Hopefully the tmod team will come up with a better implementation that they can maintain.
